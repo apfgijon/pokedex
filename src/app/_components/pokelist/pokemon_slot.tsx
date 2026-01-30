@@ -6,7 +6,7 @@ interface PokemonSlotProps {
 }
 export default function PokemonSlot({ pokemon }: PokemonSlotProps) {
   const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-  return <section className="group relative flex items-center gap-4 overflow-hidden rounded-full bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:ring-2 hover:ring-blue-400">
+  return <section className="group w-sm relative flex items-center gap-4 overflow-hidden rounded-full bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:ring-2 hover:ring-blue-400">
 
     <article className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-slate-100 transition-colors group-hover:bg-blue-50">
       <img
@@ -23,7 +23,7 @@ export default function PokemonSlot({ pokemon }: PokemonSlotProps) {
         </span>
         <span className="ms-1">
           {pokemon.types.map(item =>
-            <span className="mx-0.5">
+            <span key={item.type.name} className="mx-0.5">
               <Type name={item.type.name} />
             </span>
           )}

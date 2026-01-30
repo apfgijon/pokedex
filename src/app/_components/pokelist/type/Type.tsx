@@ -28,6 +28,6 @@ export function Type({name}: {name: string}) {
   const backgroundColor = POKEMON_TYPE_COLORS[name as PokemonType];
   return <span
     style={{backgroundColor}}
-    className="text-white p-1 text-xs rounded-full"
+    className="text-white px-2 py-1 text-xs rounded-full"
   >{name}</span>
 }

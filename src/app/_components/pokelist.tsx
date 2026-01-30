@@ -14,7 +14,7 @@ export function ListPokemon() {
         <h1 className="mb-8 text-3xl font-bold text-slate-800 md:text-4xl">
           Pokédex
         </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {pokemons.map((pokemon) => (
             <PokemonSlot key={pokemon.id} pokemon={pokemon} />
           ))}
