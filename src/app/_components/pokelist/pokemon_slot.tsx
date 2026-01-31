@@ -1,8 +1,8 @@
-import type { Pokemon } from "~/trpc/model/pokemon"
+import type { PokemonData } from "~/trpc/model/pokemon"
 import { Type } from "./type/Type";
 
 interface PokemonSlotProps {
-  pokemon: Pokemon
+  pokemon: PokemonData
 }
 export default function PokemonSlot({ pokemon }: PokemonSlotProps) {
   const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
