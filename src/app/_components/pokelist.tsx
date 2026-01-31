@@ -15,7 +15,7 @@ export function ListPokemon() {
           Pokédex
         </h1>
         <FilterBar />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center">
           {displayList?.map((pokemon) => (
             <PokemonSlot key={pokemon.id} pokemon={pokemon} />
           ))}
