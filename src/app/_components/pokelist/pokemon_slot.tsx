@@ -1,3 +1,5 @@
+"use client"
+
 import type { PokemonData } from "~/trpc/model/pokemon"
 import { Type } from "./type/Type";
 

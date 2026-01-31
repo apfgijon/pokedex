@@ -5,9 +5,8 @@ import { ListPokemon } from "~/app/_components/pokelist";
 import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
-  void api.post.getLatest.prefetch();
+  void api.pokeapi.pokemon.names.prefetch();
+  void api.pokeapi.pokemon.stackData.prefetch(Array.from({ length: 30 }, (_, i) => i + 1));
 
   return (
     <HydrateClient>
