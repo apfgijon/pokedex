@@ -1,13 +1,11 @@
 "use client";
 
-import { api } from "~/trpc/react";
 import PokemonSlot from "./pokelist/pokemon_slot";
 import { FilterBar } from "./pokelist/filter";
 import { usePokemonManager } from "../hooks/usePokemonManager";
 
 export function ListPokemon() {
-  const [pokemonList] = api.pokeapi.pokemon.names.useSuspenseQuery();
-  const {displayList, hasMore, isFetching, ref} = usePokemonManager(pokemonList);
+  const {displayList, hasMore, isLoading, ref} = usePokemonManager();
   return (
     <main className="min-h-screen bg-slate-50 p-4 md:p-8">
       <div className="mx-auto max-w-7xl">
@@ -22,7 +20,7 @@ export function ListPokemon() {
         </div>
       </div>
       <div ref={ref} className="mt-12 flex flex-col items-center justify-center pb-20">
-        {hasMore ? (
+        {hasMore || isLoading ? (
           <div className="flex flex-col items-center gap-4">
             <div className="relative h-12 w-12 animate-spin overflow-hidden rounded-full border-4 border-slate-800 bg-white">
               <div className="absolute top-0 h-1/2 w-full bg-red-500" />

@@ -1,7 +1,4 @@
-type PokemonType = 
-  | 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' 
-  | 'fighting' | 'poison' | 'ground' | 'flying' | 'psychic' | 'bug' 
-  | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy';
+import type { PokemonType } from "~/trpc/model/types";
 
 const POKEMON_TYPE_COLORS: Record<PokemonType, string> = {
   normal: '#A8A77A',

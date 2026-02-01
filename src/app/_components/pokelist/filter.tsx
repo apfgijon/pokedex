@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useFilterStore } from '~/app/store/filterStore';
+import { AVAILABLE_TYPES } from '~/trpc/model/types';
 
 type FilterKeys = 'search' | 'type' | 'gen';
 
@@ -42,7 +43,10 @@ export const FilterBar: React.FC = () => {
             onChange={handleChange}
             className="w-full p-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-blue-400 outline-none shadow-sm cursor-pointer"
           >
-            <option value="all">All Types</option>
+            <option value="all">all</option>
+            {AVAILABLE_TYPES.map(pType => (
+            <option key={pType} value={pType}>{pType}</option>
+            ))}
           </select>
         </div>
 
@@ -56,7 +60,7 @@ export const FilterBar: React.FC = () => {
             onChange={handleChange}
             className="w-full p-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-blue-400 outline-none shadow-sm cursor-pointer"
           >
-            <option value="all">All Gens</option>
+            <option value="all">all</option>
             <option value="1">I</option>
             <option value="2">II</option>
             <option value="3">III</option>

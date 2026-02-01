@@ -24,12 +24,18 @@ const checkPokemonGen = (id: number, gen: number | string): boolean => {
   return id >= range[0] && id <= range[1];
 };
 
-export function usePokemonManager(allPokemonNames: { id: number; name: string }[]) {
+export function usePokemonManager() {
   const POKEMON_BATCH = 30;
   const filters = useFilterStore((state) => state.filters);
   const [pokemonEnrichedList, setPokemonEnrichedList] = useState<PokemonData[]>([]);
 
+  const { data: allPokemonNames, isLoading: isLoadingNames } = api.pokeapi.pokemon.names.useQuery(
+    { pType: filters.type },
+    { staleTime: Infinity },
+  );
+
   const masterFilteredIds = useMemo(() => {
+    if (!allPokemonNames) return [];
     return allPokemonNames
       .filter(p => {
         const matchesName = p.name.toLowerCase().includes(filters.search.toLowerCase());
@@ -50,7 +56,7 @@ export function usePokemonManager(allPokemonNames: { id: number; name: string }[
     return masterFilteredIds.slice(currentCount, currentCount + POKEMON_BATCH);
   }, [pokemonEnrichedList.length, masterFilteredIds]);
 
-  const { data: pokemonNewEnrichedBatch, isFetching } = api.pokeapi.pokemon.stackData.useQuery(idsToFetch, {
+  const { data: pokemonNewEnrichedBatch, isLoading: isLoadingEnriched } = api.pokeapi.pokemon.stackData.useQuery(idsToFetch, {
     enabled: idsToFetch.length > 0 && (inView || pokemonEnrichedList.length === 0),
     staleTime: 1000,
   });
@@ -75,7 +81,7 @@ export function usePokemonManager(allPokemonNames: { id: number; name: string }[
   return {
     displayList: pokemonEnrichedList,
     hasMore: pokemonEnrichedList.length < masterFilteredIds.length,
-    isFetching: isFetching,
+    isLoading: isLoadingEnriched || isLoadingNames,
     ref: ref
   };
 }

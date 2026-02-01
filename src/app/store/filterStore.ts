@@ -1,10 +1,11 @@
 "use client";
 
 import { create } from 'zustand';
+import type { PokemonType } from '~/trpc/model/types';
 
 interface Filters {
   search: string;
-  type: string;
+  type: 'all' | PokemonType;
   gen: string;
 }
 
