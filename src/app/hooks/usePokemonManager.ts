@@ -5,27 +5,10 @@ import { useFilterStore } from "~/app/store/filterStore";
 import type { PokemonData } from "~/trpc/model/pokemon";
 import { useInView } from "react-intersection-observer";
 import { api } from "~/trpc/react";
-
-const checkPokemonGen = (id: number, gen: number | string): boolean => {
-  const g = typeof gen === 'string' ? parseInt(gen) : gen;
-  const ranges: Record<number, [number, number]> = {
-    1: [1, 151],
-    2: [152, 251],
-    3: [252, 386],
-    4: [387, 493],
-    5: [494, 649],
-    6: [650, 721],
-    7: [722, 809],
-    8: [810, 905],
-    9: [906, 1025]
-  };
-  const range = ranges[g];
-  if (!range) return false;
-  return id >= range[0] && id <= range[1];
-};
+import { checkPokemonGen } from "~/utils/pokemon/gen";
 
 export function usePokemonManager() {
-  const POKEMON_BATCH = 30;
+  const POKEMON_BATCH = 5;
   const filters = useFilterStore((state) => state.filters);
   const [pokemonEnrichedList, setPokemonEnrichedList] = useState<PokemonData[]>([]);
 
