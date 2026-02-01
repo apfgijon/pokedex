@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useFilterStore } from "~/app/store/filterStore";
 import type { PokemonData } from "~/trpc/model/pokemon";
 import { useInView } from "react-intersection-observer";

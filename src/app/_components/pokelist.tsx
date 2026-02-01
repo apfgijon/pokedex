@@ -1,6 +1,6 @@
 "use client";
 
-import PokemonSlot from "./pokelist/pokemon_slot";
+import PokemonSlot from "./pokelist/pokemonSlot";
 import { FilterBar } from "./pokelist/filter";
 import { usePokemonManager } from "../hooks/usePokemonManager";
 
