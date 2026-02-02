@@ -32,8 +32,15 @@ pnpm dev
 Se realizaron unit tests sobre una única función y smoke tests básicos sobre la aplicación.
 Para poder ejecutar los tests se deberá instalar [playwright](https://playwright.dev/).
 
-Para ejecutar los tests se deberá hacer:
+Para ejecutar los tests se deberá tener la aplicación corriendo en el puerto 3000 de localhost y hacer:
 
 ```bash
 pnpm test
 ```
+
+Si se desea realizar solo los tests unitarios no será necesario ni playwright ni la aplicación corriendo y se podrá hacer:
+
+```bash
+pnpm test:unit
+```
+
