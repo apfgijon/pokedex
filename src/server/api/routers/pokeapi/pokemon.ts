@@ -15,9 +15,12 @@ export const pokemonRouter = createTRPCRouter({
     return await getPokemons(input.pType);
   }),
   stackData: publicProcedure
-  .input(z.array(z.number().int().min(1).max(1025)))
+  .input(z.object({
+    ids: z.array(z.number().int().min(1).max(1025)),
+    includeEvolutions: z.boolean().optional().default(false),
+  }))
   .query(async ({input}): Promise<PokemonData[]> => {
-    return await getStackPokemonData(input);
+    return await getStackPokemonData(input.ids, input.includeEvolutions);
   }),
   chainEvo: publicProcedure
   .input(z.array(z.number().int().min(1).max(1025)))

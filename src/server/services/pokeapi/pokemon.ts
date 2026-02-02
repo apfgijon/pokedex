@@ -29,20 +29,47 @@ export async function getPokemons(pType: PokemonType | 'all'): Promise<PokemonId
   return pokeList.map(poke => getIdFromFirstRequest(poke)).filter(poke => poke.id < 1026);
 }
 
-export async function getStackPokemonData(input: number[]): Promise<PokemonData[]> {
+export async function getStackPokemonData(input: number[], includeEvolutions: boolean): Promise<PokemonData[]> {
   const promisePokemonData = input.map(pokeId => fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}/`, {
     next: { revalidate: 3600 }
   }).then(res => res.json()));
 
-  const pokeInfoList = await Promise.all(promisePokemonData);
+  let pokeInfoList = await Promise.all(promisePokemonData);
   
-  return pokeInfoList;
+  let evolutionData: PokemonData[] = [];
+  if (includeEvolutions) {
+    const evolutionIds = await getEvolutionChainIds(input);
+    const evoIdsNotInInput = evolutionIds.filter(id => !input.includes(id));
+    if (evoIdsNotInInput.length > 0) {
+      evolutionData = await getStackPokemonData(evoIdsNotInInput, false);
+    }
+  }
+  
+  return [...pokeInfoList, ...evolutionData];
 }
+
 
 interface PokemonSpeciesRet {
   evolution_chain: {
     url: string;
   }
+}
+
+//This is for avoid repeating evolve id enriched data request
+async function getEvolutionChainIds(input: number[]): Promise<number[]> {
+  const speciesPromises = input.map(id =>
+    fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`, { next: { revalidate: 3600 } })
+    .then(res => res.json() as Promise<PokemonSpeciesRet>)
+  );
+  const speciesResults = await Promise.all(speciesPromises);
+  const uniqueChainUrls = [...new Set(speciesResults.map(s => s.evolution_chain.url))];
+
+  const chainPromises = uniqueChainUrls.map(url =>
+    fetch(url, { next: { revalidate: 3600 } }).then(res => res.json() as Promise<PokemonEvoTree>)
+  );
+  const chains = await Promise.all(chainPromises);
+  const allIds = chains.flatMap(chain => FromTreeToArray(chain).map(p => p.id));
+  return [...new Set(allIds)];
 }
 
 export async function getChainPokemonData(input: number[]): Promise<PokemonId[][]> {

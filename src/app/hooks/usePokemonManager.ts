@@ -8,9 +8,9 @@ import { api } from "~/trpc/react";
 import { checkPokemonGen } from "~/utils/pokemon/gen";
 
 export function usePokemonManager() {
-  const POKEMON_BATCH = 5;
   const filters = useFilterStore((state) => state.filters);
-  const [pokemonEnrichedList, setPokemonEnrichedList] = useState<PokemonData[]>([]);
+  const POKEMON_BATCH = filters.search !== "" ? 5:15;
+  let [pokemonEnrichedList, setPokemonEnrichedList] = useState<PokemonData[]>([]);
 
   const { data: allPokemonNames, isLoading: isLoadingNames } = api.pokeapi.pokemon.names.useQuery(
     { pType: filters.type },
@@ -39,7 +39,12 @@ export function usePokemonManager() {
     return masterFilteredIds.slice(currentCount, currentCount + POKEMON_BATCH);
   }, [pokemonEnrichedList.length, masterFilteredIds]);
 
-  const { data: pokemonNewEnrichedBatch, isLoading: isLoadingEnriched } = api.pokeapi.pokemon.stackData.useQuery(idsToFetch, {
+  const { data: pokemonNewEnrichedBatch, isLoading: isLoadingEnriched } = api.pokeapi.pokemon.stackData.useQuery(
+    {
+      ids:idsToFetch,
+      includeEvolutions:filters.search !== ""
+    }, 
+    {
     enabled: idsToFetch.length > 0 && (inView || pokemonEnrichedList.length === 0),
     staleTime: 1000,
   });
@@ -55,8 +60,13 @@ export function usePokemonManager() {
         }
 
         const existingIds = new Set(prev.map(p => p.id));
+        if (filters.search !== "") {
+          const pokeEnrichedUnique = [...new Map(pokemonNewEnrichedBatch.map(poke => [poke.id, poke])).values()];
+          const newItems = pokeEnrichedUnique.filter(p => !existingIds.has(p.id));
+          return [...prev, ...newItems].sort((poke1, poke2) => poke1.id - poke2.id);
+        }
         const newItems = pokemonNewEnrichedBatch.filter(p => !existingIds.has(p.id));
-        return [...prev, ...newItems];
+        return [...prev, ...newItems].sort((poke1, poke2) => poke1.id - poke2.id);
       });
     }
   }, [pokemonNewEnrichedBatch, masterFilteredIds]);

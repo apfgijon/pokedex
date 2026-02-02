@@ -14,7 +14,7 @@ export default async function PokemonPage({
   params: Promise<{ id: number }>;
 }) {
   const { id } = await params;
-  const pokemon = (await api.pokeapi.pokemon.stackData([Number(id)]))?.at(0);
+  const pokemon = (await api.pokeapi.pokemon.stackData({ids:[Number(id)]}))?.at(0);
 
   if (!pokemon) return <main className="min-h-screen bg-slate-50"></main>;
 
