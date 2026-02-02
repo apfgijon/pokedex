@@ -1,29 +1,39 @@
-# Create T3 App
+# Pokedex hecha por Antonio
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Este es un proyecto desarrollado por Antonio Piedra para una prueba técnica para la empresa a2r.
 
-## What's next? How do I make an app with this?
+Se trata de hacer una Pokedex haciendo uso de la api pública [PokeApi](https://pokeapi.co/). Se entiende que la idea es no hacer persistencia pero hacer uso de cachés para acelerar la aplicación.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Una demo de la aplicación estará disponible en (pokedex.antoniopiedra.es)[https://pokedex.antoniopiedra.es].
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Prerrequisitos
+ - [pnpm](https://pnpm.io/installation)
+ - [playwright](https://playwright.dev/) (opcional si se quieren ejecutar los tests)
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Instalación
 
-## Learn More
+Para instalar este proyecto se deberá hacer:
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+```bash
+git clone https://github.com/apfgijon/pokedex.git
+cd pokedex
+pnpm install
+```
+## Inicio de aplicación
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+Para iniciar la aplicación se deberá hacer:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```bash
+pnpm dev
+```
 
-## How do I deploy this?
+## Tests
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Se realizaron unit tests sobre una única función y smoke tests básicos sobre la aplicación.
+Para poder ejecutar los tests se deberá instalar [playwright](https://playwright.dev/).
+
+Para ejecutar los tests se deberá hacer:
+
+```bash
+pnpm test
+```
