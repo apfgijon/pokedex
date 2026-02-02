@@ -41,7 +41,7 @@ export default async function PokemonPage({
                   style={{ viewTransitionName: `poke-img-${pokemon.id}` }}
                   src={pokemon.sprites.versions?.["generation-iii"]?.emerald?.front_default ?? pokemon.sprites.front_default}
                   alt={name}
-                  className="h-40 w-40 object-contain md:h-52 md:w-52"
+                  className="h-40 w-40 object-contain md:h-52 md:w-52 [image-rendering:pixelated] rendering-crisp-edges mix-blend-multiply"
                 />
               </div>
 

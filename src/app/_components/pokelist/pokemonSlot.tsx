@@ -24,7 +24,7 @@ export default function PokemonSlot({ pokemon }: PokemonSlotProps) {
           style={{ viewTransitionName: `poke-img-${pokemon.id}` }}
           src={pokemon.sprites.versions?.["generation-iii"]?.emerald?.front_default ?? pokemon.sprites.front_default}
           alt={name}
-          className="h-16 w-16 object-contain"
+          className="[image-rendering:pixelated] rendering-crisp-edges mix-blend-multiply h-16 w-16 object-contain"
         />
       </article>
 

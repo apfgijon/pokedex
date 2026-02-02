@@ -52,7 +52,7 @@ export default function PokemonEvolutions({ pokemon }: PokemonEvoProps) {
               <img
                 src={spriteUrl}
                 alt={evo.name}
-                className={`relative z-10 h-full w-full object-contain transition-transform duration-300 group-hover:scale-110 ${
+                className={`[image-rendering:pixelated] rendering-crisp-edges mix-blend-multiply relative z-10 h-full w-full object-contain transition-transform duration-300 group-hover:scale-110 ${
                   !isCurrent && "grayscale-[0.3] group-hover:grayscale-0"
                 }`}
               />
