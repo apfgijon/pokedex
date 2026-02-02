@@ -4,7 +4,7 @@ Este es un proyecto desarrollado por Antonio Piedra para una prueba técnica par
 
 Se trata de hacer una Pokedex haciendo uso de la api pública [PokeApi](https://pokeapi.co/). Se entiende que la idea es no hacer persistencia pero hacer uso de cachés para acelerar la aplicación.
 
-Una demo de la aplicación estará disponible en (pokedex.antoniopiedra.es)[https://pokedex.antoniopiedra.es].
+Una demo de la aplicación estará disponible en [pokedex.antoniopiedra.es](https://pokedex.antoniopiedra.es).
 
 ## Prerrequisitos
  - [pnpm](https://pnpm.io/installation)
